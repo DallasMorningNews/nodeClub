@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*-------------------------------------------------------
 I.      IMPORTANT FILES/FOLDERS IN THE DIRECTORIES
 ---------------------------------------------------------
@@ -20,10 +21,17 @@ templates -- Directory for holding templates for site pages
 -------------------------------------------------------*/
 
 //Require listed dependencies
+=======
+/*---------------------------------------------------------------------------
+			    GET OUR DEPENDENCIES DECLARED AND PRIMED
+---------------------------------------------------------------------------*/
+//Tell our app which dependencies are required.
+>>>>>>> e897e2d3a077e9c78e6738fde225b95e9a559c03
 var express = require('express'),
 	nunjucks = require('nunjucks'),
 	orm = require('orm');
 
+<<<<<<< HEAD
 //In conjunction with dotenv dependency, allows access to data in .env file
 require('dotenv').load();
 
@@ -31,16 +39,30 @@ require('dotenv').load();
 var app = express();
 
 //Declare Nunjucks and set some initial options
+=======
+//require the use of our .env file which containes the database credentials.
+require('dotenv').load();
+
+//Tell our app to use express
+var app = express();
+
+//Configure Nunjucks, our templating library
+>>>>>>> e897e2d3a077e9c78e6738fde225b95e9a559c03
 nunjucks.configure('templates', {
     autoescape: true,
     express: app
 });
 
+<<<<<<< HEAD
 //Tell script that we will be serving CSS, Javascripts and Images through this directory
+=======
+//We're going to use express but keep some assets in the static directory?
+>>>>>>> e897e2d3a077e9c78e6738fde225b95e9a559c03
 app.use(express.static('static'));
 
 
 
+<<<<<<< HEAD
 
 /*-------------------------------------------------------
 III.            NOW WE START DOING SOME WORK
@@ -50,6 +72,20 @@ III.            NOW WE START DOING SOME WORK
 //Our app is going to connect to our mysql database using credentials set in .env file
 app.use(orm.express("mysql://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+process.env.DB_HOST, {
     define: function (db, models) {
+=======
+/*---------------------------------------------------------------------------
+			      THIS IS WHERE WE ACTUALLY BANG ON CODE
+---------------------------------------------------------------------------*/
+
+//This sets up a route.
+//A route takes parts of the URL and uses them for variables.
+//localhost:3000/home/troy === req.params.name which comes from the ":name" in the get string
+app.get('/home/:name', function (req, res) {
+	//Render the page home in the home.html file using the name varivable from the url
+    res.render("home.html",{'name' : req.params.name })
+  });
+});
+>>>>>>> e897e2d3a077e9c78e6738fde225b95e9a559c03
 
     	//Instructions for CREATING a table from scratch
         models.person = db.define("person", {   // Create/define a TABLE called "person"
@@ -64,6 +100,7 @@ app.use(orm.express("mysql://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+p
         	}
         });
 
+<<<<<<< HEAD
         //Sync the instructions with the database
         //NOTE: If database already exists, nothing happens.
         db.sync();
@@ -86,6 +123,11 @@ app.get('/home/:name', function (req, res) {     //When the URL has "/home/Layne
 IV.          BUILD SERVER TO SERVE PAGES
 -------------------------------------------------------*/
 
+=======
+/*---------------------------------------------------------------------------
+			      FURNITURE WITH WEB SERVER INSTRUCTIONS
+---------------------------------------------------------------------------*/
+>>>>>>> e897e2d3a077e9c78e6738fde225b95e9a559c03
 var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
