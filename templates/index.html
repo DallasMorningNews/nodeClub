@@ -1,24 +1,41 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="/css/styles.css">
-    </head>
-    <body>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
 
-    <h4>Your page!</h4>
+<div class="brand">The Dallas Morning News</div>
+<div class="container">
 
-        {% block header %}
-		{% endblock %}
+<!-- Nunjucks tag that defines the area below as "block header" -->
+<!-- This content will be swapped out for other info from department.html and bio.html -->
+{% block header %}
 
+  Welcome to the 2012 DMN Employee Directory. Please select a department to continue!<br/>
+  <select>
+    <option value="backfield">Backfield</option>
+    <option value="business">Business</option>
+    <option value="digital">Digital</option>
+    <option value="editorial">Editorial</option>
+    <option value="lifestyles">Lifestyles</option>
+    <option value="metro">Metro</option>
+    <option value="neighborsgo">NeighborsGo</option>
+    <option value="news-art">News Art</option>
+    <option value="photo">Photo</option>
+    <option value="projects">Projects</option>
+    <option value="sports">Sports</option>
+    <option value="ud">Universal Desk</option>
+</select>
 
+{% endblock %} <!-- Defines the end of the Nunjucks area called "block header" -->
 
-    </body>
+</div>
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="javascripts/custom.js"></script>
+
+</body>
 </html>

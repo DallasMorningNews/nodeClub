@@ -1,0 +1,22 @@
+<!-- Nunjucks instructions that say this code will extend/add to the code already in index.html -->
+{% extends "index.html" %}
+
+<!-- Nunjucks tag that defines the area below as the new "block header" -->
+<!-- This "block header" will replace the one on the index.html -->
+{% block header %}
+
+<!-- Nunjucks tag that inserts whichever "department" we passed in-->
+<h1>{{ department }} Roster</h1>
+
+<ul>
+	<!-- Nunjucks tag that allows us to insert code, in this case a FOR loop-->
+	{% for employee in employees %}
+		
+		<!-- For each "employee" in the employees array we sent it creat a list element with data from each array element -->
+		<li><a href="/bio/{{employee.id}}">{{ employee.last_name }}, {{employee.first_name}}</a> {{ employee.business_phone }}</li>
+
+	{% endfor %} <!-- End the for loop-->
+</ul>
+
+<!-- End of teh Nunjucks "block header" tag-->
+{% endblock %}

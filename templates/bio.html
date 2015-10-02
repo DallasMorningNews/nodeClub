@@ -1,0 +1,21 @@
+<!-- Nunjucks instructions that say this code will extend/add to the code already in index.html -->
+{% extends "index.html" %}
+
+<!-- Nunjucks tag that defines the area below as the new "block header" -->
+<!-- This "block header" will replace the one on the index.html -->
+{% block header %}
+
+<!-- A Nunjucks tag that inserts a value. In this case, whatever the value returned from the
+	 "employee.fullname() method we described when we set the table up." -->
+<h3>{{ employee.fullname() }}</h3>
+
+<!-- Another Nunjucks tag that inserts whatever the value is for "employee.department"-->
+<h5>{{ employee.department }}</h5>
+<h5>Work: {{ employee.business_phone }}</h5>
+<h5>{{ employee.street }}, {{city}} TX, {{zip}}</h5>
+<h5>Mobile: {{ employee.mobile_phone }}</h5>
+<h5>Home: {{ employee.home_phone }}</h5>
+<h5>Notes: {{ employee.notes }}</h5>
+
+<!-- End of teh Nunjucks "block header" tag-->
+{% endblock %}

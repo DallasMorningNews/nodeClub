@@ -40,8 +40,6 @@ nunjucks.configure('templates', {
 app.use(express.static('static'));
 
 
-
-
 /*-------------------------------------------------------
 III.            NOW WE START DOING SOME WORK
 -------------------------------------------------------*/
@@ -53,36 +51,68 @@ app.use(orm.express("mysql://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+p
     define: function (db, models) {
 
       //Instructions for CREATING a table from scratch
-        models.person = db.define("person", {   // Create/define a TABLE called "person"
-          id : {type: 'serial', key:true},    // Create a column called "id" that's a serial key. A serial key is simply a number that increments automatically.
-          name: {type: 'text'},               // Create a column called "name" that's text
-          surname: {type: 'text'}             // Create a column called "surname" that's text
+      models.staff_db = db.define("staff_directory", {  // Create/define a TABLE called "staff_directory"
+            id : {type: 'serial', key:true},            // Create a column called "id" that's a serial key. A serial key is simply a number that increments automatically.
+            first_name: String,                         // Create a column called "first_name" that's text
+            last_name: String,                          // Etc...
+            department: String, 
+            street: String, 
+            city: String, 
+            zip: String,
+            lat: Number,                                // Create a column called "lat" that's a number
+            lon: Number,
+            business_phone: String,
+            home_phone: String,
+            mobile_phone: String,
+            notes: String, 
         }, {
-          methods : {    //Create a method that concatenates and returns a name and surname togther using "object.methodname()" format
-            fullname: function() {
-              return this.name + ' ' + this.surname;
+          methods : { 
+            fullname: function() {     //Create a method that concatenates and returns a name and surname togther using "object.methodname()" format
+              return this.first_name + ' ' + this.last_name;
             }
           }
         });
-
+        
         //Sync the instructions with the database
         //NOTE: If database already exists, nothing happens.
         db.sync();
+
     }
 }));
 
 //------ SET ROUTE: A route takes info from the URL and turns it into variables used by the script
 // It also intercepts client requests, ie, URL requests, and serves up the appropriate page based on the rules here
 
-app.get('/home/:name', function (req, res) {     //When the URL has "/home/Layne" do the following...
+//From the root URL display the index.html template
+app.get("/", function (req, res) {   
+    res.render("index.html");
+});
+
+// From the /department/:variable URL display the department.html template
+// In this case, the :department will be specified in the URL. Example: "localhost:3000/department/photo"
+// where :department will equal "photo"
+app.get("/department/:department", function (req, res) {
     
-  //In the table called "person," find the var "Layne" in the column "name" and pass results back in array of "people" ...
-  req.models.person.find({name:req.params.name}).run(function(err,people){    
-    
-        //Render a page using the home.html template and pass the result of the "fullname()" method on the first 
-        //(and, in this case, only) object in the array we got back from find
-        res.render("home.html",{'name' : people[0].fullname() });               
-  });
+    //In the table "staff_db" we defined above find the department in the table column "department" and pass results back in array of "employees" ...
+    req.models.staff_db.find({department:req.params.department}).run(function(err,employees){ 
+
+        //Render a page using the department.html template and pass the department and the employees array
+        res.render("department.html",{'employees' : employees,'department' :  req.params.department});
+    });
+});
+
+// Another route, this time for the bio pages
+// Like above, the :id will be specified in the URL. Example: "localhost:3000/bio/37"
+// (NOTE: The id value is unique and lives in the table. We will set it on the department.html page)
+app.get("/bio/:id", function (req, res) {
+
+    //In the table "staff_db" we defined above find the id in the table column "id" and pass results back in array of "employee" ...
+    req.models.staff_db.find({id:parseInt(req.params.id)}).run(function(err,employee){ 
+
+        //Render a page using the bio.html template and pass the id and the employee array, which has only one item since each id is unique to an employee
+        res.render("bio.html",{id:req.params.id,employee:employee[0]});
+
+    });
 });
 
 
