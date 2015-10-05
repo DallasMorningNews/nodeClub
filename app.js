@@ -71,7 +71,7 @@ app.use(orm.express("mysql://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+p
               return this.first_name + ' ' + this.last_name;
             },
             buildPhoneNumber: function() { // checks to see if business_phone is a four-digit extension. if it is, adds in the preceding 6 digits
-              if (this.business_phone.length = 4 ) {
+              if (this.business_phone.length === 4 ) {
                 return "(214) 977-" + this.business_phone;
               }
             }
