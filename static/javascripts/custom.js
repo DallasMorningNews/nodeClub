@@ -9,4 +9,12 @@ $( document ).ready(function() {
 		window.location.href = "/department/"+destination;
 	});
 
+	var extension;
+
+	$('#reverseButton').click(function() {
+		extension = $('#reverseField').val();
+
+		window.location.href = "/reverse-results/" + extension;
+	})
+
 });

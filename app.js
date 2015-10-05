@@ -115,6 +115,21 @@ app.get("/bio/:id", function (req, res) {
     });
 });
 
+// renders a page that has a field that user can input the extension of someone to get their full name and info
+
+app.get("/reverse-lookup", function (req, res) {
+    res.render("reverse-lookup.html");
+});
+
+// returns a page with the extension number, the name of the employee, and their department, other numbers and notes
+app.get("/reverse-results/:extension", function (req, res) {
+
+    req.models.staff_db.find({business_phone:req.params.extension}).run(function(err,employee) {
+        res.render("reverse-results.html", {"extension" : req.params.extension, employee: employee[0]});
+    });
+});
+
+
 
 /*-------------------------------------------------------
 IV.          BUILD SERVER TO SERVE PAGES LOCALLY

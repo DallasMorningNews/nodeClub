@@ -1,0 +1,21 @@
+<!-- Nunjucks instructions that say this code will extend/add to the code already in index.html -->
+{% extends "index.html" %}
+
+<!-- Nunjucks tag that defines the area below as the new "block header" -->
+<!-- This "block header" will replace the one on the index.html -->
+{% block header %}
+
+<!-- Nunjucks tag that inserts whichever "department" we passed in-->
+<h1>Dallas Morning News Reverse Lookup</h1>
+
+<p>Have a phone number, but not sure who it belongs to? Enter the four digit extension and click the  "Submit" button:</p>
+
+<form>
+  Phone number: 
+  <input id="reverseField" type="text" name="phoneNumber" placeholder="1234">
+  <span id="reverseButton" value="Submit">Submit</span>
+</form>
+
+
+<!-- End of teh Nunjucks "block header" tag-->
+{% endblock %}
