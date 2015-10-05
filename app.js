@@ -130,29 +130,16 @@ app.get("/reverse-lookup", function (req, res) {
 app.get("/reverse-results/:extension", function (req, res) {
 
     req.models.staff_db.find({business_phone:req.params.extension}).run(function(err,employee) {
+        
+        //Throw 404 status and send basic response if no employee found
+        if(employee.length === 0){
+          res.status(404).send("No employee found");
+        }
+
         res.render("reverse-results.html", {employee: employee[0]});
     });
 });
 
-
-app.use(function(req, res, next){
-  res.status(404);
-
-  // respond with html page
-  if (req.accepts('html')) {
-    res.render('404', { url: req.url });
-    return;
-  }
-
-  // respond with json
-  if (req.accepts('json')) {
-    res.send({ error: 'Not found' });
-    return;
-  }
-
-  // default to plain-text. send()
-  res.type('txt').send('Not found');
-});
 
 
 
