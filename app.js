@@ -69,6 +69,11 @@ app.use(orm.express("mysql://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+p
           methods : { 
             fullname: function() {     //Create a method that concatenates and returns a name and surname togther using "object.methodname()" format
               return this.first_name + ' ' + this.last_name;
+            },
+            buildPhoneNumber: function() { // checks to see if business_phone is a four-digit extension. if it is, adds in the preceding 6 digits
+              if (this.business_phone.length = 4 ) {
+                return "(214) 977-" + this.business_phone;
+              }
             }
           }
         });
@@ -125,7 +130,7 @@ app.get("/reverse-lookup", function (req, res) {
 app.get("/reverse-results/:extension", function (req, res) {
 
     req.models.staff_db.find({business_phone:req.params.extension}).run(function(err,employee) {
-        res.render("reverse-results.html", {"extension" : req.params.extension, employee: employee[0]});
+        res.render("reverse-results.html", {employee: employee[0]});
     });
 });
 
