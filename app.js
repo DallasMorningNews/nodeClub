@@ -11,6 +11,7 @@ FOLDERS
 node_modules -- Directory that holds actual dependencies listed in package.json
 static -- Directory that will hold all of our static files like images, CSS and client-side javascript
 models -- Directory where we'll declare our "models", i.e., the structure of our database tables
+roues -- Directory where we've separated our routes into individual files
 templates -- Directory for holding templates for site pages
 
 
@@ -72,6 +73,7 @@ app.use(orm.express("mysql://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+p
 }));
 
 
+
 /*-------------------------------------------------------
 IV.            ROUTES
 -------------------------------------------------------*/
@@ -79,7 +81,7 @@ IV.            ROUTES
 //Load our routes from a routes file.
 //We can 'require' files just like we would other node modules. 
 //Notice the '.js' is optional on 'routes.js'
-require('./routes/routes')(app);
+require('./routes/index')(app);
 
 
 /*-------------------------------------------------------
