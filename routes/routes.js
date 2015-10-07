@@ -10,7 +10,6 @@ module.exports = function(app){
 
 	//From the root URL display the index.html template
 	app.get("/", function (req, res) {   
-	    console.log(req.models.staff_db);
 	    res.render("index.html");
 	});
 

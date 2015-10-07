@@ -40,18 +40,9 @@ nunjucks.configure('templates', {
 app.use(express.static('static'));
 
 
-/*-------------------------------------------------------
-III.            ROUTES
--------------------------------------------------------*/
-
-//Load our routes from a routes file.
-//We can 'require' files just like we would other node modules. 
-//Notice the '.js' is optional on 'routes.js'
-require('./routes/routes')(app);
-
 
 /*-------------------------------------------------------
-IV.            DATABASE
+III.            DATABASE
 -------------------------------------------------------*/
 
 //Our app is going to connect to our mysql database using credentials set in .env file
@@ -79,6 +70,16 @@ app.use(orm.express("mysql://"+process.env.DB_USER+":"+process.env.DB_PASS+"@"+p
         next();
     }
 }));
+
+
+/*-------------------------------------------------------
+IV.            ROUTES
+-------------------------------------------------------*/
+
+//Load our routes from a routes file.
+//We can 'require' files just like we would other node modules. 
+//Notice the '.js' is optional on 'routes.js'
+require('./routes/routes')(app);
 
 
 /*-------------------------------------------------------
